@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import LocaleLink from "@/shared/ui/LocaleLink";
 import { BadgeCheck } from "lucide-react";
@@ -48,9 +49,13 @@ export default function ServicesHero() {
 
         <div className="relative lg:col-span-5">
           <div className="aspect-square overflow-hidden rounded-[28px] shadow-[0_30px_90px_rgba(8,29,48,0.16)]">
-            <img
+            <Image
               src={heroImage}
               alt="Modern building design and construction planning"
+              width={800}
+              height={800}
+              priority
+              sizes="(max-width: 1024px) 100vw, 40vw"
               className="h-full w-full object-cover"
             />
           </div>

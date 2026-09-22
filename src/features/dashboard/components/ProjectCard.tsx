@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { MapPin, Calendar, TrendingUp } from "lucide-react";
 import type { DashboardProject, ProjectStatus } from "@/features/dashboard/types/dashboard.types";
 
@@ -28,9 +29,12 @@ export default function ProjectCard({ project }: Props) {
     <div className="bg-white rounded-2xl border border-[#e8f5f0] shadow-[0_2px_16px_rgba(0,63,44,0.06)] overflow-hidden hover:shadow-[0_4px_24px_rgba(0,63,44,0.10)] transition-shadow duration-200">
       {project.coverImageUrl ? (
         <div className="h-36 bg-[#f0faf5] overflow-hidden">
-          <img
+          <Image
             src={project.coverImageUrl}
             alt={project.title}
+            width={400}
+            height={225}
+            sizes="(max-width: 768px) 100vw, 400px"
             className="w-full h-full object-cover"
           />
         </div>

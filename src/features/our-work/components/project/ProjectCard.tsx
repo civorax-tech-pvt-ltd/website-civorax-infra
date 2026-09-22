@@ -1,4 +1,4 @@
-// import Image from "next/image";
+import Image from "next/image";
 import LocaleLink from "@/shared/ui/LocaleLink";
 
 import type { Project } from "@/entities/projects";
@@ -71,9 +71,11 @@ export default function ProjectCard({
         className="block h-full"
       >
         <div className="relative h-full overflow-hidden rounded-[18px] bg-[#f0ede9] shadow-[0_16px_55px_rgba(8,29,48,0.10)] transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_24px_70px_rgba(0,108,78,0.10)]">
-          <img
+          <Image
             src={project.thumbnail}
             alt={project.title}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
             className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
 

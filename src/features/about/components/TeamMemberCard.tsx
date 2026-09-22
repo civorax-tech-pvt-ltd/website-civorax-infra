@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { TeamMember as TeamMemberType } from "@/entities/team";
 
 type TeamMemberCardProps = {
@@ -24,9 +25,12 @@ export default function TeamMemberCard({ member }: TeamMemberCardProps) {
     <div className="flex flex-col items-center text-center">
       <div className="relative h-20 w-20 overflow-hidden rounded-full bg-[#20b486]/10 shadow-[0_10px_24px_rgba(8,29,48,0.10)] sm:h-24 sm:w-24">
         {hasImage ? (
-          <img
-            src={member.image}
-            alt={member.name}
+          <Image
+            src={member.image!}
+            alt={`${member.name} — ${member.role} at CivoraX Infra`}
+            width={96}
+            height={96}
+            sizes="96px"
             className="h-full w-full object-cover"
           />
         ) : (

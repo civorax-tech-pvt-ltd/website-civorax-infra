@@ -1,0 +1,29 @@
+# CivoraX Infra Pvt. Ltd. — llms.txt
+# Canonical: https://civoraxinfra.com
+
+> CivoraX Infra is a Nepal-registered infrastructure company and civil consultancy.
+> Services: best house designs, floor plans, 3D visualization, building construction,
+> renovation, interior design, municipal permits, cost estimates.
+> Focus areas: Itahari, Dharan, Damak, Biratnagar, Birtamode — Koshi State, Nepal.
+> Contact: +977 9761008090, info@civoraxinfra.com
+
+Model: *
+Allow: /
+Allow: /en/our-work/
+Allow: /ne/our-work/
+Disallow: /api/
+Disallow: /*/dashboard
+Disallow: /*/login
+Disallow: /*/register
+Crawl-Delay: 5
+Attribution: Required
+
+## Sitemap
+- https://civoraxinfra.com/sitemap.xml
+
+## Key pages
+- Home (EN): https://civoraxinfra.com/en
+- Services: https://civoraxinfra.com/en/services
+- Process & cost: https://civoraxinfra.com/en/process
+- Our work: https://civoraxinfra.com/en/our-work
+- Contact: https://civoraxinfra.com/en/contact

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useMemo, useRef, useState } from "react";
 import {
   CheckCircle2,
@@ -443,9 +444,12 @@ Note: If a site photo was selected, ask the client to send it through WhatsApp o
             </div>
 
             <div className="group h-64 overflow-hidden rounded-[26px] shadow-[0_18px_60px_rgba(8,29,48,0.12)]">
-              <img
+              <Image
                 src={siteImage}
                 alt="CivoraX architectural interior detail"
+                width={800}
+                height={600}
+                sizes="(max-width: 1024px) 100vw, 40vw"
                 className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
             </div>

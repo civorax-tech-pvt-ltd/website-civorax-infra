@@ -1,5 +1,10 @@
+import type { Metadata } from "next";
 import { LayoutDashboard, FolderOpen, FileText, Package, LogOut } from "lucide-react";
 import LocaleLink from "@/shared/ui/LocaleLink";
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 const navItems = [
   { href: "/dashboard", icon: LayoutDashboard, label: "Overview" },

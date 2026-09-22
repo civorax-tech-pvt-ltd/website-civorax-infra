@@ -1,3 +1,4 @@
+import Image from "next/image";
 import LocaleLink from "@/shared/ui/LocaleLink";
 import { ArrowRight, Moon, Play, Sun } from "lucide-react";
 import { consultationLink } from "@/entities/navigation";
@@ -8,9 +9,12 @@ export default function DesignPreviewSection() {
       <div className="mx-auto grid max-w-[1280px] items-center gap-12 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-6">
           <div className="group relative overflow-hidden rounded-[30px] border-[8px] border-white/10 shadow-[0_30px_100px_rgba(0,0,0,0.35)]">
-            <img
+            <Image
               src="https://images.unsplash.com/photo-1616046229478-9901c5536a45?auto=format&fit=crop&w=1400&q=85"
               alt="Premium interior design preview"
+              width={1280}
+              height={720}
+              sizes="(max-width: 1024px) 100vw, 50vw"
               className="aspect-video h-full w-full object-cover brightness-90 transition-transform duration-700 group-hover:scale-105"
             />
 

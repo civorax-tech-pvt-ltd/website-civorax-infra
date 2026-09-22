@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { notFound } from "next/navigation";
 
 import { projects } from "@/entities/projects";
@@ -27,9 +28,12 @@ export default function ProjectDetailPage({
     <main className="overflow-hidden bg-[#fcf9f4] text-[#1c1c19]">
       {/* Hero Image */}
       <section className="relative h-[520px] w-full">
-        <img
+        <Image
           src={project.coverImage}
           alt={project.title}
+          fill
+          priority
+          sizes="100vw"
           className="h-full w-full object-cover"
         />
 
@@ -103,10 +107,13 @@ export default function ProjectDetailPage({
 
         <div className="grid gap-6 md:grid-cols-2">
           {project.gallery.map((image) => (
-            <img
+            <Image
               key={image}
               src={image}
               alt={project.title}
+              width={1280}
+              height={800}
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="aspect-[16/10] w-full rounded-2xl object-cover"
             />
           ))}

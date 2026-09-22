@@ -15,10 +15,6 @@ export type TeamDepartment = {
   description: string;
 };
 
-function avatar(seed: string): string {
-  return `https://randomuser.me/api/portraits/${seed}.jpg`;
-}
-
 export const teamDepartments: TeamDepartment[] = [
   {
     slug: "architecture-design",

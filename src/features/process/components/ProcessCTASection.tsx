@@ -19,7 +19,7 @@ export default function ProcessCTASection() {
             </h2>
 
             <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-white/72 sm:text-lg">
-              Share your project location, budget range, and requirements. We'll
+              Share your project location, budget range, and requirements. We&apos;ll
               help you understand the next practical step before execution.
             </p>
 

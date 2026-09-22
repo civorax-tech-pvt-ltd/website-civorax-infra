@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ArrowRight, Clock, GraduationCap } from "lucide-react";
 import LocaleLink from "@/shared/ui/LocaleLink";
 import { formatNpr } from "@/lib/utils";
@@ -16,9 +17,12 @@ export default function CourseCard({ course }: { course: Course }) {
       className="group flex flex-col overflow-hidden rounded-[24px] border border-[#e5e2dd] bg-white shadow-[0_14px_45px_rgba(8,29,48,0.045)] transition-all hover:-translate-y-1 hover:shadow-[0_22px_65px_rgba(8,29,48,0.08)]"
     >
       <div className="relative h-48 w-full overflow-hidden">
-        <img
+        <Image
           src={course.cover_image_url ?? fallbackImage}
           alt={course.title}
+          fill
+          unoptimized
+          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
 

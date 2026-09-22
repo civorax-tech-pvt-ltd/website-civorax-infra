@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Clock, GraduationCap } from "lucide-react";
 import LocaleLink from "@/shared/ui/LocaleLink";
 import { siteConfig } from "@/configs/site.config";
@@ -14,9 +15,13 @@ export default function CourseDetailPage({ course }: { course: CourseDetail }) {
   return (
     <main className="overflow-hidden bg-[#fcf9f4] text-[#1c1c19]">
       <section className="relative h-[360px] w-full overflow-hidden sm:h-[440px]">
-        <img
+        <Image
           src={course.cover_image_url ?? fallbackImage}
           alt={course.title}
+          fill
+          priority
+          unoptimized
+          sizes="100vw"
           className="h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/10" />

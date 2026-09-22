@@ -1,3 +1,4 @@
+import Image from "next/image";
 import LocaleLink from "@/shared/ui/LocaleLink";
 import BulletList from "@/shared/ui/BulletList";
 import { consultationLink } from "@/entities/navigation";
@@ -37,9 +38,12 @@ export default function ServiceFeatureRow({
         >
           <div className="absolute -inset-4 -z-10 rounded-[28px] bg-[#ffdbce]/25" />
 
-          <img
+          <Image
             src={service.image}
             alt={`${service.title} planning and execution`}
+            width={1000}
+            height={800}
+            sizes="(max-width: 768px) 100vw, 50vw"
             className="h-[360px] w-full rounded-[24px] object-cover shadow-[0_20px_70px_rgba(8,29,48,0.12)] sm:h-[460px] lg:h-[500px]"
           />
         </div>

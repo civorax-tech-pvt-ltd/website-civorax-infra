@@ -20,7 +20,7 @@ export default function CTASection() {
             </h2>
 
             <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-white/72 sm:text-lg">
-              Let's discuss your project vision, budget range, site condition,
+              Let&apos;s discuss your project vision, budget range, site condition,
               and planning needs before execution begins.
             </p>
 

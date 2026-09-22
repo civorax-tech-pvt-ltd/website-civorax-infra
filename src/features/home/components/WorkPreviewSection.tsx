@@ -1,3 +1,4 @@
+import Image from "next/image";
 import LocaleLink from "@/shared/ui/LocaleLink";
 import { ArrowRight } from "lucide-react";
 
@@ -45,9 +46,11 @@ export default function WorkPreviewSection() {
                   isLarge ? "md:col-span-8" : "md:col-span-4"
                 } ${index === 1 ? "md:min-h-[390px]" : ""}`}
               >
-                <img
+                <Image
                   src={project.thumbnail}
                   alt={project.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
                   className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
 

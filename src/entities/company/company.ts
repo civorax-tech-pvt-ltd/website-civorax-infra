@@ -12,8 +12,8 @@ export const company = {
 
   whatsappNumber: "9779761008090",
 
-  email: "info@civorax.com",
-  projectEmail: "projects@civorax.com",
+  email: "info@civoraxinfra.com",
+  projectEmail: "projects@civoraxinfra.com",
 
   websiteUrl: "https://civoraxinfra.com",
 } as const;

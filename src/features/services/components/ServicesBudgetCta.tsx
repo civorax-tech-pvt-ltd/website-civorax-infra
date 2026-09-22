@@ -1,3 +1,4 @@
+import Image from "next/image";
 import LocaleLink from "@/shared/ui/LocaleLink";
 import BulletList from "@/shared/ui/BulletList";
 import { consultationLink } from "@/entities/navigation";
@@ -47,9 +48,12 @@ export default function ServicesBudgetCta() {
         </div>
 
         <div className="min-h-[360px] md:col-span-7">
-          <img
+          <Image
             src={supervisionImage}
             alt="Project supervision and planning discussion"
+            width={1200}
+            height={800}
+            sizes="(max-width: 768px) 100vw, 55vw"
             className="h-full w-full object-cover"
           />
         </div>

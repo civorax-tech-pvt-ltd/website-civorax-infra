@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { processSteps } from "@/entities/process";
 
 const processBackground =
@@ -7,10 +8,12 @@ export default function ProcessPreviewSection() {
   return (
     <section className="relative overflow-hidden bg-[#f6f3ee] px-5 pb-14 pt-24 text-[#081d30] sm:px-8 sm:pb-16 lg:px-16 lg:pb-20 lg:pt-32">
       <div className="absolute inset-0">
-        <img
+        <Image
           src={processBackground}
           alt=""
           aria-hidden="true"
+          fill
+          sizes="100vw"
           className="h-full w-full object-cover opacity-[1]"
         />
 
