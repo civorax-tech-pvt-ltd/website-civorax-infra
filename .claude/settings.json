@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Read(//d/Website/civorax-api/app/Filament/Resources/**)",
-      "Read(//d/Website/civorax-api/database/seeders/**)"
+      "Read(//d/Website/civorax-api/database/seeders/**)",
+      "Bash(gh auth *)"
     ],
     "additionalDirectories": [
       "D:\\Website\\civorax-api\\app\\Providers\\Filament",

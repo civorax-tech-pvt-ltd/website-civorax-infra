@@ -1,5 +1,6 @@
 import { siteConfig } from "@/configs/site.config";
 import { company } from "@/entities/company/company";
+import { socialLinks } from "@/entities/social";
 
 export function OrganizationJsonLd() {
   const data = {
@@ -17,7 +18,13 @@ export function OrganizationJsonLd() {
       addressCountry: "NP",
     },
     areaServed: ["Itahari", "Dharan", "Damak", "Biratnagar", "Birtamode", "Koshi", "Nepal"],
-    sameAs: [],
+    sameAs: [
+      socialLinks.facebook.href,
+      socialLinks.instagram.href,
+      socialLinks.tiktok.href,
+      socialLinks.linkedin.href,
+      socialLinks.youtube.href,
+    ],
   };
   return (
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />

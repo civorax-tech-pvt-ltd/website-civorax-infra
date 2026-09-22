@@ -1,4 +1,12 @@
-import { FaFacebookF, FaFacebookMessenger, FaInstagram, FaTiktok, FaViber } from "react-icons/fa";
+import {
+  FaFacebookF,
+  FaFacebookMessenger,
+  FaInstagram,
+  FaLinkedinIn,
+  FaTiktok,
+  FaViber,
+  FaYoutube,
+} from "react-icons/fa";
 import { socialLinks } from "@/entities/social";
 
 type SocialLinksProps = { variant?: "light" | "dark" };
@@ -9,6 +17,8 @@ const links = [
   { ...socialLinks.viber, icon: FaViber },
   { ...socialLinks.instagram, icon: FaInstagram },
   { ...socialLinks.tiktok, icon: FaTiktok },
+  { ...socialLinks.linkedin, icon: FaLinkedinIn },
+  { ...socialLinks.youtube, icon: FaYoutube },
 ];
 
 export default function SocialLinks({ variant = "dark" }: SocialLinksProps) {

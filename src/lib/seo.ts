@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { siteConfig, alternateUrls, canonicalUrl } from "@/configs/site.config";
 import { ogLocale, type Locale } from "@/configs/locale.config";
 
-type SeoKey = "home" | "services" | "about" | "contact" | "process" | "ourWork";
+type SeoKey = "home" | "services" | "about" | "contact" | "process" | "ourWork" | "academy";
 
 const KEY_TO_PATH: Record<SeoKey, string> = {
   home: "",
@@ -12,6 +12,7 @@ const KEY_TO_PATH: Record<SeoKey, string> = {
   contact: "/contact",
   process: "/process",
   ourWork: "/our-work",
+  academy: "/academy",
 };
 
 export async function buildPageMetadata(
