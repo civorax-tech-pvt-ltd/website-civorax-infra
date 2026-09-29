@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ServicesPage from "@/features/services/components/ServicesPage";
+import { ServicesJsonLd } from "@/shared/seo/ServicesJsonLd";
 import { buildPageMetadata } from "@/lib/seo";
 
 export async function generateMetadata({
@@ -11,6 +12,17 @@ export async function generateMetadata({
   return buildPageMetadata(locale, "services");
 }
 
-export default function Page() {
-  return <ServicesPage />;
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+
+  return (
+    <>
+      <ServicesJsonLd locale={locale} />
+      <ServicesPage />
+    </>
+  );
 }

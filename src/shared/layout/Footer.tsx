@@ -14,7 +14,9 @@ const serviceLinks = [
 const companyLinks = [
   { label: "About CivoraX", href: "/about" },
   { label: "Our Work", href: "/our-work" },
-  { label: "Process", href: "/process" },
+  { label: "Process & Cost", href: "/process" },
+  { label: "Blog & Guides", href: "/blog" },
+  { label: "Academy", href: "/academy" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -53,7 +55,7 @@ export default function Footer() {
           <h3 className="font-sora text-lg font-semibold">Company</h3>
           <ul className="mt-6 space-y-4">
             {companyLinks.map((link) => (
-              <li key={link.href}>
+              <li key={link.label}>
                 <LocaleLink href={link.href} className="text-sm text-white/68 transition-colors hover:text-[#77fac7]">{link.label}</LocaleLink>
               </li>
             ))}

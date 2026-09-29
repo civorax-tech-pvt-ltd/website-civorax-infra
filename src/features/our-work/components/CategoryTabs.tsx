@@ -1,6 +1,7 @@
 "use client";
 
 import { categories } from "@/entities/projects";
+import LocaleLink from "@/shared/ui/LocaleLink";
 
 type CategoryTabsProps = {
   activeFilter: string;
@@ -19,11 +20,12 @@ export default function CategoryTabs({
           .sort((a, b) => a.order - b.order)
           .map((category) => {
             const isActive = activeFilter === category.id;
+            const targetHref = category.id === "all" ? "/our-work" : `/our-work/${category.slug}`;
 
             return (
-              <button
+              <LocaleLink
                 key={category.id}
-                type="button"
+                href={targetHref}
                 onClick={() => onFilterChange(category.id)}
                 className={`rounded-full px-6 py-2.5 text-sm font-medium transition-all ${
                   isActive
@@ -32,7 +34,7 @@ export default function CategoryTabs({
                 }`}
               >
                 {category.label}
-              </button>
+              </LocaleLink>
             );
           })}
       </div>

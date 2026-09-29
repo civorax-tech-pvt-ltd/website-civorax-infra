@@ -27,35 +27,28 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Best House Designs & Construction Company in Koshi, Nepal (2026) | CivoraX Infra",
+    default: "Best House Designs & Construction Company in Koshi, Nepal | CivoraX Infra",
     template: "%s | CivoraX Infra",
   },
   description: siteConfig.description,
-  keywords: [
-    "best house designs Nepal",
-    "best construction company in Koshi",
-    "best civil consultancy in Koshi",
-    "best infrastructure company in Koshi",
-    "construction company in Itahari",
-    "construction company in Dharan",
-    "construction company in Damak",
-    "construction company in Biratnagar",
-    "construction company in Birtamode",
-    "architects in Itahari",
-    "interior design Itahari",
-    "renovation Dharan",
-    "3D house design Nepal",
-  ],
   authors: [{ name: siteConfig.name, url: siteConfig.url }],
   creator: siteConfig.name,
   publisher: siteConfig.name,
   formatDetection: { email: false, address: false, telephone: false },
   robots: { index: true, follow: true },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
+    other: {
+      ...(process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION
+        ? { "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION }
+        : {}),
+    },
+  },
   openGraph: {
     siteName: siteConfig.name,
     locale: "en_US",
     type: "website",
-    title: "Best House Designs & Construction Company in Koshi, Nepal (2026) | CivoraX Infra",
+    title: "Best House Designs & Construction Company in Koshi, Nepal | CivoraX Infra",
     description: siteConfig.description,
   },
   twitter: {
@@ -71,9 +64,6 @@ export const metadata: Metadata = {
       { url: "/favicon/favicon-96x96.png", sizes: "96x96", type: "image/png" },
     ],
     apple: { url: "/favicon/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
-    other: [
-      { rel: "manifest", url: "/favicon/site.webmanifest" },
-    ],
   },
 };
 

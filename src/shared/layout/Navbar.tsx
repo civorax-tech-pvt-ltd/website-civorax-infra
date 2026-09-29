@@ -38,14 +38,14 @@ export default function Navbar() {
         </div>
 
         {/* Desktop nav */}
-        <nav className="hidden flex-1 items-center justify-center gap-8 lg:flex xl:gap-10">
+        <nav className="hidden flex-1 items-center justify-center gap-6 lg:flex xl:gap-8">
           {navLinks.map((link) => {
             const active = isActive(pathname, link.href);
             return (
               <LocaleLink
                 key={link.href}
                 href={link.href}
-                className={`relative py-2 text-[15px] font-semibold transition-colors duration-200 ${active ? "text-[#006c4e]" : "text-[#081d30] hover:text-[#006c4e]"}`}
+                className={`relative py-2 text-[14px] font-semibold transition-colors duration-200 xl:text-[15px] ${active ? "text-[#006c4e]" : "text-[#081d30] hover:text-[#006c4e]"}`}
               >
                 {t(link.key)}
                 {active && <span className="absolute -bottom-1 left-1/2 h-[2px] w-8 -translate-x-1/2 rounded-full bg-[#e8855d]" />}
@@ -55,7 +55,7 @@ export default function Navbar() {
         </nav>
 
         {/* Desktop right */}
-        <div className="hidden min-w-[330px] items-center justify-end gap-3 lg:flex">
+        <div className="hidden min-w-[320px] items-center justify-end gap-3 lg:flex">
           <LanguageSwitcher />
           <LocaleLink
             href="/login"
@@ -65,7 +65,7 @@ export default function Navbar() {
             Portal Login
           </LocaleLink>
           <Button href={consultationLink} size="sm" className="h-[42px] rounded-[13px] bg-[#2f7d32] px-4 text-[13px] text-white hover:bg-[#256b2a] hover:text-white">
-            {t("home")}
+            {t("cta")}
             <ArrowRight size={16} strokeWidth={2.4} />
           </Button>
         </div>
@@ -111,7 +111,7 @@ export default function Navbar() {
               onClick={() => setOpen(false)}
               className="mt-3 inline-flex h-11 items-center justify-center gap-3 rounded-xl bg-[#2f7d32] px-5 text-sm font-bold text-white"
             >
-              {t("home")}
+              {t("cta")}
               <ArrowRight size={17} />
             </LocaleLink>
           </nav>

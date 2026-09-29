@@ -1,5 +1,5 @@
 # CivoraX Infra Pvt. Ltd. — llms.txt
-# Canonical: https://civoraxinfra.com
+# Canonical: https://civoraxinfra.com/llms.txt
 
 > CivoraX Infra is a Nepal-registered infrastructure company and civil consultancy.
 > Services: best house designs, floor plans, 3D visualization, building construction,
@@ -11,6 +11,8 @@ Model: *
 Allow: /
 Allow: /en/our-work/
 Allow: /ne/our-work/
+Allow: /en/blog/
+Allow: /ne/blog/
 Disallow: /api/
 Disallow: /*/dashboard
 Disallow: /*/login
@@ -20,10 +22,13 @@ Attribution: Required
 
 ## Sitemap
 - https://civoraxinfra.com/sitemap.xml
+- https://civoraxinfra.com/feed.xml
 
 ## Key pages
 - Home (EN): https://civoraxinfra.com/en
 - Services: https://civoraxinfra.com/en/services
 - Process & cost: https://civoraxinfra.com/en/process
 - Our work: https://civoraxinfra.com/en/our-work
+- Blog & guides: https://civoraxinfra.com/en/blog
+- Academy: https://civoraxinfra.com/en/academy
 - Contact: https://civoraxinfra.com/en/contact

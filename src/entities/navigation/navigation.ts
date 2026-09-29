@@ -5,6 +5,7 @@ export const navLinks = [
   { key: "services", href: "/services" },
   { key: "ourWork",  href: "/our-work" },
   { key: "process",  href: "/process" },
+  { key: "blog",     href: "/blog" },
   { key: "academy",  href: "/academy" },
   { key: "about",    href: "/about" },
   { key: "contact",  href: "/contact" },
