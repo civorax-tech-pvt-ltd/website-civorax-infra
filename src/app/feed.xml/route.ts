@@ -1,10 +1,14 @@
-import { blogPosts } from "@/entities/blog";
+import { getBlogPosts } from "@/features/blog/api/blog";
 import { siteConfig } from "@/configs/site.config";
 import { company } from "@/entities/company";
 
+/** Rebuilt at most hourly, or right away when a post changes ("blog" cache tag). */
+export const revalidate = 3600;
+
 export async function GET() {
+  const blogPosts = await getBlogPosts();
   const siteUrl = siteConfig.url;
-  const now = new Date().toUTCString();
+  const now = (blogPosts[0] ? new Date(blogPosts[0].publishedAt) : new Date()).toUTCString();
 
   const itemsXml = blogPosts
     .map((post) => {

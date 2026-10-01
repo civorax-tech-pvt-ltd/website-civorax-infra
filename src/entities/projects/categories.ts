@@ -1,97 +1,42 @@
 export type ProjectCategory = {
   /**
-   * Unique identifier.
-   * Used for filtering and URLs.
+   * Category slug, used for filtering and URLs.
    *
-   * Example:
-   * /our-work/home-concepts
+   * Example: /our-work/home-concepts
    */
   id: string;
 
-  /**
-   * Display name.
-   */
+  /** Display name. */
   label: string;
 
-  /**
-   * URL slug.
-   */
+  /** URL slug. */
   slug: string;
 
-  /**
-   * Short description.
-   * Useful for category pages.
-   */
+  /** Short description, shown on the category page. */
   description?: string;
 
-  /**
-   * Controls display order.
-   */
+  /** Optional SEO overrides (managed in the admin). */
+  seoTitle?: string;
+  seoDescription?: string;
+
+  /** Display order. */
   order: number;
 
-  /**
-   * Show on navigation/filter.
-   */
+  /** Show in navigation / filters. */
   visible: boolean;
+
+  /** Published projects in the category. */
+  projectsCount?: number;
+
+  updatedAt?: string;
 };
 
-export const categories: ProjectCategory[] = [
-  {
-    id: "all",
-    label: "All",
-    slug: "all",
-    description: "Browse all architectural projects.",
-    order: 0,
-    visible: true,
-  },
-
-  {
-    id: "home-concepts",
-    label: "Home Concepts",
-    slug: "home-concepts",
-    description:
-      "Residential concepts designed for modern and sustainable living.",
-    order: 1,
-    visible: true,
-  },
-
-  {
-    id: "interior-concepts",
-    label: "Interior Concepts",
-    slug: "interior-concepts",
-    description:
-      "Interior spaces focused on functionality, aesthetics, and comfort.",
-    order: 2,
-    visible: true,
-  },
-
-  {
-    id: "commercial",
-    label: "Commercial",
-    slug: "commercial",
-    description:
-      "Commercial buildings, offices, retail spaces, and business environments.",
-    order: 3,
-    visible: true,
-  },
-
-  {
-    id: "renovation",
-    label: "Renovation",
-    slug: "renovation",
-    description:
-      "Modern renovation and restoration projects that preserve architectural value.",
-    order: 4,
-    visible: true,
-  },
-
-  {
-    id: "3d-visualization",
-    label: "3D Visualization",
-    slug: "3d-visualization",
-    description:
-      "Photorealistic architectural visualizations and conceptual renderings.",
-    order: 5,
-    visible: true,
-  },
-];
+/** The "All" filter tab: not a real category, always first. */
+export const allCategory: ProjectCategory = {
+  id: "all",
+  label: "All",
+  slug: "all",
+  description: "Browse all architectural projects.",
+  order: 0,
+  visible: true,
+};

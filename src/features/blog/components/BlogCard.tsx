@@ -7,13 +7,15 @@ export default function BlogCard({ post }: { post: BlogPost }) {
   return (
     <article className="group flex flex-col overflow-hidden rounded-[24px] border border-[#e5e2dd] bg-white shadow-[0_14px_45px_rgba(8,29,48,0.045)] transition-all hover:-translate-y-1 hover:shadow-[0_22px_65px_rgba(8,29,48,0.08)]">
       <div className="relative h-56 w-full overflow-hidden bg-[#f0ede9]">
-        <Image
-          src={post.coverImage}
-          alt={post.title}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-        />
+        {post.coverImage && (
+          <Image
+            src={post.coverImage}
+            alt={post.coverAlt}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+        )}
         <LocaleLink
           href={`/blog/category/${post.category}`}
           className="absolute left-4 top-4 rounded-full bg-[#006c4e] px-3.5 py-1 text-xs font-bold text-white shadow-md transition-opacity hover:opacity-90"
@@ -25,7 +27,7 @@ export default function BlogCard({ post }: { post: BlogPost }) {
         <div className="flex items-center gap-4 text-xs font-medium text-[#6d7a72]">
           <span className="inline-flex items-center gap-1.5">
             <Calendar size={14} />
-            {post.publishedAt}
+            <time dateTime={post.publishedAt}>{post.publishedDate}</time>
           </span>
           <span className="inline-flex items-center gap-1.5">
             <Clock size={14} />

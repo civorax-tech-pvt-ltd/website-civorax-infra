@@ -1,7 +1,7 @@
 import Image from "next/image";
 import LocaleLink from "@/shared/ui/LocaleLink";
 import { ArrowRight, Calculator, Calendar, Clock, HelpCircle, UserRound } from "lucide-react";
-import type { BlogPost } from "@/entities/blog";
+import type { BlogPost, BlogPostDetail } from "@/entities/blog";
 import { consultationLink } from "@/entities/navigation";
 import { MarkdownContent } from "./MarkdownContent";
 
@@ -9,7 +9,7 @@ export default function BlogPostPage({
   post,
   relatedPosts = [],
 }: {
-  post: BlogPost;
+  post: BlogPostDetail;
   relatedPosts?: BlogPost[];
 }) {
   return (
@@ -49,27 +49,31 @@ export default function BlogPostPage({
             )}
             <div>
               <p className="font-bold text-[#1c1c19]">{post.author.name}</p>
-              <p className="text-xs text-[#6d7a72]">{post.author.role}</p>
+              {post.author.role && <p className="text-xs text-[#6d7a72]">{post.author.role}</p>}
             </div>
           </div>
-          <span className="flex items-center gap-1.5"><Calendar size={16} /> {post.publishedAt}</span>
+          <span className="flex items-center gap-1.5"><Calendar size={16} /> <time dateTime={post.publishedAt}>{post.publishedDate}</time></span>
           <span className="flex items-center gap-1.5"><Clock size={16} /> {post.readingTime}</span>
         </div>
       </header>
 
       {/* Featured Image */}
-      <div className="mx-auto my-8 max-w-[1100px] px-5 sm:px-8">
-        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-[28px] shadow-lg">
-          <Image
-            src={post.coverImage}
-            alt={post.title}
-            fill
-            priority
-            sizes="(max-width: 1100px) 100vw, 1100px"
-            className="object-cover"
-          />
+      {post.coverImage ? (
+        <div className="mx-auto my-8 max-w-[1100px] px-5 sm:px-8">
+          <div className="relative aspect-[16/9] w-full overflow-hidden rounded-[28px] shadow-lg">
+            <Image
+              src={post.coverImage}
+              alt={post.coverAlt}
+              fill
+              priority
+              sizes="(max-width: 1100px) 100vw, 1100px"
+              className="object-cover"
+            />
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="my-8" />
+      )}
 
       {/* Content and Sticky Sidebar */}
       <div className="mx-auto grid max-w-[1100px] gap-12 px-5 pb-24 sm:px-8 lg:grid-cols-12">
@@ -97,7 +101,7 @@ export default function BlogPostPage({
             <div>
               <span className="text-[11px] font-bold uppercase tracking-wider text-[#006c4e]">Written by</span>
               <h3 className="font-sora text-base font-bold text-[#1c1c19]">{post.author.name}</h3>
-              <p className="text-xs text-[#6d7a72]">{post.author.role} at CivoraX Infra</p>
+              <p className="text-xs text-[#6d7a72]">{post.author.role ? `${post.author.role} at CivoraX Infra` : "CivoraX Infra"}</p>
             </div>
           </div>
 
@@ -181,6 +185,7 @@ export default function BlogPostPage({
           )}
 
           {/* Related Services */}
+          {post.relatedServices.length > 0 && (
           <div className="rounded-[24px] border border-[#e5e2dd] bg-white p-6 shadow-sm">
             <h4 className="font-sora text-base font-bold text-[#1c1c19]">Related Services</h4>
             <p className="mt-1 text-xs text-[#6d7a72]">Work with our engineers and architects</p>
@@ -198,6 +203,7 @@ export default function BlogPostPage({
               ))}
             </ul>
           </div>
+          )}
 
           {/* Related Case Studies */}
           {post.relatedProjects && post.relatedProjects.length > 0 && (

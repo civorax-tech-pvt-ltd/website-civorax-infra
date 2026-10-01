@@ -1,37 +1,27 @@
-import { notFound } from "next/navigation";
-
-import { categories, projects } from "@/entities/projects";
+import type { Project, ProjectCategory } from "@/entities/projects";
 
 import HeroSection from "./components/HeroSection";
+import CategoryTabs from "./components/CategoryTabs";
 import ProjectGrid from "./components/project/ProjectGrid";
 import CTASection from "./components/CTASection";
 
 type Props = {
-  categorySlug: string;
+  category: ProjectCategory;
+  categories: ProjectCategory[];
+  projects: Project[];
 };
 
-export default function CategoryPage({ categorySlug }: Props) {
-  const category = categories.find((c) => c.slug === categorySlug);
-
-  if (!category) {
-    notFound();
-  }
-
-  const filteredProjects = projects.filter((project) =>
-    project.categories.includes(category.id)
-  );
-
+export default function CategoryPage({ category, categories, projects }: Props) {
   return (
     <main className="overflow-hidden bg-[#fcf9f4] text-[#1c1c19]">
       <HeroSection
         title={category.label}
-        description={
-          category.description ??
-          "Explore our architectural portfolio."
-        }
+        description={category.description ?? "Explore our architectural portfolio."}
       />
 
-      <ProjectGrid projects={filteredProjects} />
+      <CategoryTabs categories={categories} activeFilter={category.id} />
+
+      <ProjectGrid projects={projects} featuredLayout={false} />
 
       <CTASection />
     </main>

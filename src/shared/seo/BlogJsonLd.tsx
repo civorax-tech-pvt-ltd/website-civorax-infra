@@ -1,7 +1,45 @@
 import { siteConfig } from "@/configs/site.config";
-import type { BlogPost } from "@/entities/blog";
+import type { BlogPost, BlogPostDetail } from "@/entities/blog";
 
-export function BlogPostJsonLd({ post, locale }: { post: BlogPost; locale: string }) {
+/** Blog index / category pages: the list of articles for search engines. */
+export function BlogListJsonLd({
+  posts,
+  locale,
+  name,
+  path,
+}: {
+  posts: BlogPost[];
+  locale: string;
+  name: string;
+  path: string;
+}) {
+  const base = `${siteConfig.url}/${locale}`;
+
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    name,
+    url: `${base}${path}`,
+    blogPost: posts.map((post) => ({
+      "@type": "BlogPosting",
+      headline: post.title,
+      url: `${base}/blog/${post.slug}`,
+      datePublished: post.publishedAt,
+      dateModified: post.updatedAt,
+      author: { "@type": "Person", name: post.author.name },
+      ...(post.coverImage ? { image: post.coverImage } : {}),
+    })),
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
+}
+
+export function BlogPostJsonLd({ post, locale }: { post: BlogPostDetail; locale: string }) {
   const postUrl = `${siteConfig.url}/${locale}/blog/${post.slug}`;
 
   const articleSchema = {
@@ -9,7 +47,7 @@ export function BlogPostJsonLd({ post, locale }: { post: BlogPost; locale: strin
     "@type": "BlogPosting",
     headline: post.title,
     description: post.seoDescription,
-    image: [post.coverImage],
+    ...(post.coverImage ? { image: [post.coverImage] } : {}),
     datePublished: post.publishedAt,
     dateModified: post.updatedAt,
     inLanguage: locale === "ne" ? "ne-NP" : locale === "ja" ? "ja-JP" : "en-US",
@@ -17,7 +55,7 @@ export function BlogPostJsonLd({ post, locale }: { post: BlogPost; locale: strin
     author: {
       "@type": "Person",
       name: post.author.name,
-      jobTitle: post.author.role,
+      ...(post.author.role ? { jobTitle: post.author.role } : {}),
     },
     publisher: {
       "@type": "Organization",

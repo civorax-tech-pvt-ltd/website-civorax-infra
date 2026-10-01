@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import BlogListPage from "@/features/blog/components/BlogListPage";
+import { getBlogCategories, getBlogPosts } from "@/features/blog/api/blog";
+import { BlogListJsonLd } from "@/shared/seo/BlogJsonLd";
 import { canonicalUrl, alternateUrls, siteConfig } from "@/configs/site.config";
 import { ogLocale, type Locale } from "@/configs/locale.config";
 
@@ -30,7 +32,7 @@ export async function generateMetadata({
   const meta = localizedTitles[locale] ?? localizedTitles.en;
 
   return {
-    title: meta.title,
+    title: { absolute: meta.title },
     description: meta.desc,
     alternates: { canonical, languages },
     openGraph: {
@@ -45,6 +47,14 @@ export async function generateMetadata({
   };
 }
 
-export default function Page() {
-  return <BlogListPage />;
+export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const [posts, categories] = await Promise.all([getBlogPosts(), getBlogCategories()]);
+
+  return (
+    <>
+      <BlogListJsonLd posts={posts} locale={locale} path="/blog" name="CivoraX Blog" />
+      <BlogListPage posts={posts} categories={categories} />
+    </>
+  );
 }

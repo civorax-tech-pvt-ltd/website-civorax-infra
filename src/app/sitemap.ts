@@ -1,16 +1,34 @@
 import type { MetadataRoute } from "next";
 import { locales } from "@/configs/locale.config";
 import { siteConfig } from "@/configs/site.config";
-import { categories } from "@/entities/projects/categories";
-import { projects } from "@/entities/projects/projects";
-import { blogPosts, blogCategories } from "@/entities/blog";
+import { projectPath } from "@/entities/projects";
+import { getPortfolioCategories, getPortfolioProjects } from "@/features/our-work/api/portfolio";
+import { getBlogCategories, getBlogPosts } from "@/features/blog/api/blog";
 
 const STATIC_PATHS = ["", "/services", "/about", "/contact", "/process", "/our-work", "/blog", "/academy"];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+/** Rebuilt at most hourly; portfolio and blog edits also refresh it through their cache tags. */
+export const revalidate = 3600;
+
+function languages(base: string, path: string) {
+  return {
+    en: `${base}/en${path}`,
+    ne: `${base}/ne${path}`,
+    ja: `${base}/ja${path}`,
+    "x-default": `${base}/en${path}`,
+  };
+}
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = siteConfig.url;
   const now = new Date();
   const entries: MetadataRoute.Sitemap = [];
+  const [categories, projects, blogCategories, blogPosts] = await Promise.all([
+    getPortfolioCategories(),
+    getPortfolioProjects(),
+    getBlogCategories(),
+    getBlogPosts(),
+  ]);
 
   for (const locale of locales) {
     // 1. Static Routes
@@ -20,57 +38,38 @@ export default function sitemap(): MetadataRoute.Sitemap {
         lastModified: now,
         changeFrequency: path === "" ? "weekly" : "monthly",
         priority: path === "" ? 1 : 0.8,
-        alternates: {
-          languages: {
-            en: `${base}/en${path}`,
-            ne: `${base}/ne${path}`,
-            ja: `${base}/ja${path}`,
-            "x-default": `${base}/en${path}`,
-          },
-        },
+        alternates: { languages: languages(base, path) },
       });
     }
 
-    // 2. Portfolio Categories
-    for (const category of categories.filter((c) => c.slug !== "all")) {
+    // 2. Portfolio Categories (from the API)
+    for (const category of categories) {
       const catPath = `/our-work/${category.slug}`;
       entries.push({
         url: `${base}/${locale}${catPath}`,
-        lastModified: now,
-        changeFrequency: "monthly",
+        lastModified: category.updatedAt ? new Date(category.updatedAt) : now,
+        changeFrequency: "weekly",
         priority: 0.7,
-        alternates: {
-          languages: {
-            en: `${base}/en${catPath}`,
-            ne: `${base}/ne${catPath}`,
-            ja: `${base}/ja${catPath}`,
-            "x-default": `${base}/en${catPath}`,
-          },
-        },
+        alternates: { languages: languages(base, catPath) },
       });
     }
 
-    // 3. Project Detail Pages
+    // 3. Project Detail Pages (canonical URL only, with images for Google Images)
     for (const project of projects) {
-      const primaryCategory = project.categories[0] ?? "home-concepts";
-      const projPath = `/our-work/${primaryCategory}/${project.slug}`;
+      const projPath = projectPath(project);
+      const images = [project.coverImage, project.thumbnail].filter((url): url is string => Boolean(url));
+
       entries.push({
         url: `${base}/${locale}${projPath}`,
-        lastModified: project.year ? new Date(`${project.year}-01-01`) : now,
-        changeFrequency: "yearly",
-        priority: 0.6,
-        alternates: {
-          languages: {
-            en: `${base}/en${projPath}`,
-            ne: `${base}/ne${projPath}`,
-            ja: `${base}/ja${projPath}`,
-            "x-default": `${base}/en${projPath}`,
-          },
-        },
+        lastModified: project.updatedAt ? new Date(project.updatedAt) : now,
+        changeFrequency: "monthly",
+        priority: project.featured ? 0.8 : 0.6,
+        alternates: { languages: languages(base, projPath) },
+        ...(images.length ? { images: [...new Set(images)] } : {}),
       });
     }
 
-    // 4. Blog Categories
+    // 4. Blog Categories (from the API)
     for (const cat of blogCategories) {
       const catPath = `/blog/category/${cat.slug}`;
       entries.push({
@@ -78,18 +77,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
         lastModified: now,
         changeFrequency: "weekly",
         priority: 0.7,
-        alternates: {
-          languages: {
-            en: `${base}/en${catPath}`,
-            ne: `${base}/ne${catPath}`,
-            ja: `${base}/ja${catPath}`,
-            "x-default": `${base}/en${catPath}`,
-          },
-        },
+        alternates: { languages: languages(base, catPath) },
       });
     }
 
-    // 5. Blog Posts
+    // 5. Blog Posts (with cover images for Google Images)
     for (const post of blogPosts) {
       const blogPath = `/blog/${post.slug}`;
       entries.push({
@@ -97,14 +89,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
         lastModified: new Date(post.updatedAt),
         changeFrequency: "monthly",
         priority: 0.8,
-        alternates: {
-          languages: {
-            en: `${base}/en${blogPath}`,
-            ne: `${base}/ne${blogPath}`,
-            ja: `${base}/ja${blogPath}`,
-            "x-default": `${base}/en${blogPath}`,
-          },
-        },
+        alternates: { languages: languages(base, blogPath) },
+        ...(post.coverImage ? { images: [post.coverImage] } : {}),
       });
     }
   }

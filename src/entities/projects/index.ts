@@ -1,10 +1,12 @@
-export { projects } from "./projects";
+export { projectPath } from "./projects";
 export type {
   Project,
+  ProjectDetail,
+  ProjectImage,
   ProjectStatus,
   ProjectSize,
   ProjectVideo,
 } from "./projects";
 
-export { categories } from "./categories";
+export { allCategory } from "./categories";
 export type { ProjectCategory } from "./categories";

@@ -1,16 +1,18 @@
-import { blogPosts, blogCategories, type BlogPost } from "@/entities/blog";
+import type { BlogCategory, BlogPost } from "@/entities/blog";
 import BlogCard from "./BlogCard";
 import SectionEyebrow from "@/shared/ui/SectionEyebrow";
 import LocaleLink from "@/shared/ui/LocaleLink";
 
 export default function BlogListPage({
   currentCategory = "all",
-  posts = blogPosts,
+  posts,
+  categories,
 }: {
   currentCategory?: string;
-  posts?: BlogPost[];
+  posts: BlogPost[];
+  categories: BlogCategory[];
 }) {
-  const activeCategoryObj = blogCategories.find((c) => c.slug === currentCategory);
+  const activeCategoryObj = categories.find((c) => c.slug === currentCategory);
 
   return (
     <main className="overflow-hidden bg-[#fcf9f4] text-[#1c1c19]">
@@ -23,7 +25,8 @@ export default function BlogListPage({
               : "Construction & House Design Knowledge Base"}
           </h1>
           <p className="mt-5 text-base leading-8 text-[#3d4a43] sm:text-lg">
-            Engineering tips, municipal permits, BOQ estimates, and modern architectural insights for homeowners and developers across Koshi and Nepal.
+            {activeCategoryObj?.description ??
+              "Engineering tips, municipal permits, BOQ estimates, and modern architectural insights for homeowners and developers across Koshi and Nepal."}
           </p>
         </div>
 
@@ -39,7 +42,7 @@ export default function BlogListPage({
           >
             All Articles
           </LocaleLink>
-          {blogCategories.map((cat) => (
+          {categories.map((cat) => (
             <LocaleLink
               key={cat.slug}
               href={`/blog/category/${cat.slug}`}
